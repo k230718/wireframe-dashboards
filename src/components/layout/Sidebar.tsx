@@ -1,6 +1,25 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { BarChart3, Home, FolderOpen, ShoppingCart, TrendingUp, Settings, ArrowLeft } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { 
+  BarChart3, 
+  Home, 
+  FolderOpen, 
+  ShoppingCart, 
+  TrendingUp, 
+  Settings, 
+  ArrowLeft,
+  Search,
+  Users,
+  FileText,
+  Package,
+  HandCoins,
+  Calendar,
+  BarChart,
+  Cog,
+  LogOut,
+  ChevronLeft
+} from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 interface SidebarProps {
@@ -11,65 +30,174 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const projectItems = [
-    { icon: Home, label: "Dashboard", path: "/project-management" },
-    { icon: FolderOpen, label: "Project Management", path: "/project-management", active: true },
-    { icon: TrendingUp, label: "Analytics", path: "/project-management/analytics" },
-    { icon: Settings, label: "Settings", path: "/project-management/settings" },
+  const projectSections = [
+    {
+      title: "OVERVIEW",
+      items: [
+        { icon: Home, label: "Dashboard", path: "/project-management", count: null }
+      ]
+    },
+    {
+      title: "PROJECT MANAGEMENT",
+      items: [
+        { icon: FolderOpen, label: "Projects", path: "/project-management/projects", count: null },
+        { icon: Calendar, label: "Milestones", path: "/project-management/milestones", count: null },
+        { icon: FileText, label: "Tasks", path: "/project-management/tasks", count: 12 }
+      ]
+    },
+    {
+      title: "PLANNING & ANALYTICS",
+      items: [
+        { icon: BarChart, label: "Analytics", path: "/project-management/analytics", count: null },
+        { icon: TrendingUp, label: "Reports", path: "/project-management/reports", count: null }
+      ]
+    },
+    {
+      title: "SYSTEM",
+      items: [
+        { icon: Settings, label: "Settings", path: "/project-management/settings", count: null }
+      ]
+    }
   ];
 
-  const procurementItems = [
-    { icon: Home, label: "Dashboard", path: "/procurement" },
-    { icon: ShoppingCart, label: "Procurement", path: "/procurement", active: true },
-    { icon: TrendingUp, label: "Analytics", path: "/procurement/analytics" },
-    { icon: Settings, label: "Settings", path: "/procurement/settings" },
+  const procurementSections = [
+    {
+      title: "OVERVIEW", 
+      items: [
+        { icon: Home, label: "Dashboard", path: "/procurement", count: null }
+      ]
+    },
+    {
+      title: "PROCUREMENT",
+      items: [
+        { icon: Users, label: "Vendors", path: "/procurement/vendors", count: null },
+        { icon: ShoppingCart, label: "Purchase Orders", path: "/procurement/orders", count: 8 },
+        { icon: FileText, label: "Requisitions", path: "/procurement/requisitions", count: 3 }
+      ]
+    },
+    {
+      title: "CONTRACTS & PAYMENTS",
+      items: [
+        { icon: Package, label: "Contracts", path: "/procurement/contracts", count: null },
+        { icon: HandCoins, label: "Invoice Matching", path: "/procurement/invoices", count: 5 }
+      ]
+    },
+    {
+      title: "PLANNING & ANALYTICS",
+      items: [
+        { icon: BarChart, label: "Analytics", path: "/procurement/analytics", count: null },
+        { icon: TrendingUp, label: "Reports", path: "/procurement/reports", count: null }
+      ]
+    },
+    {
+      title: "SYSTEM",
+      items: [
+        { icon: Settings, label: "Settings", path: "/procurement/settings", count: null }
+      ]
+    }
   ];
 
-  const menuItems = moduleType === "project" ? projectItems : procurementItems;
+  const sections = moduleType === "project" ? projectSections : procurementSections;
+  const moduleTitle = moduleType === "project" ? "Project Management" : "Procurement Management";
 
   return (
-    <div className="w-64 bg-sidebar border-r border-sidebar-border h-screen flex flex-col">
+    <div className="w-80 bg-sidebar border-r border-sidebar-border h-screen flex flex-col">
       {/* Header */}
       <div className="p-6 border-b border-sidebar-border">
         <div className="flex items-center gap-3 mb-4">
-          <BarChart3 className="h-6 w-6 text-sidebar-primary" />
-          <span className="font-semibold text-sidebar-foreground">PharmaERP</span>
+          <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+            <span className="text-white font-bold text-lg">P</span>
+          </div>
+          <div className="flex-1">
+            <div className="font-semibold text-sidebar-foreground">PharmaERP</div>
+            <div className="text-sm text-sidebar-foreground/70">{moduleTitle}</div>
+          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate("/")}
+            className="text-sidebar-foreground hover:bg-sidebar-accent p-1"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => navigate("/")}
-          className="w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent"
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Modules
-        </Button>
+        
+        {/* Search */}
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-sidebar-foreground/50" />
+          <Input
+            placeholder="Search..."
+            className="pl-10 bg-sidebar-accent border-sidebar-border text-sidebar-foreground placeholder:text-sidebar-foreground/50"
+          />
+        </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4">
-        <div className="space-y-2">
-          {menuItems.map((item) => {
-            const IconComponent = item.icon;
-            const isActive = location.pathname === item.path;
-            
-            return (
-              <Button
-                key={item.path}
-                variant={isActive ? "secondary" : "ghost"}
-                className={cn(
-                  "w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent",
-                  isActive && "bg-sidebar-accent text-sidebar-accent-foreground"
-                )}
-                onClick={() => navigate(item.path)}
-              >
-                <IconComponent className="h-4 w-4 mr-3" />
-                {item.label}
-              </Button>
-            );
-          })}
+      <nav className="flex-1 p-4 overflow-y-auto">
+        <div className="space-y-6">
+          {sections.map((section) => (
+            <div key={section.title}>
+              <h3 className="text-xs font-medium text-sidebar-foreground/60 uppercase tracking-wider mb-3">
+                {section.title}
+              </h3>
+              <div className="space-y-1">
+                {section.items.map((item) => {
+                  const IconComponent = item.icon;
+                  const isActive = location.pathname === item.path;
+                  
+                  return (
+                    <Button
+                      key={item.path}
+                      variant="ghost"
+                      className={cn(
+                        "w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent rounded-lg h-10",
+                        isActive && "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                      )}
+                      onClick={() => navigate(item.path)}
+                    >
+                      <IconComponent className="h-5 w-5 mr-3" />
+                      <span className="flex-1 text-left">{item.label}</span>
+                      {item.count && (
+                        <span className="ml-auto text-xs bg-sidebar-accent text-sidebar-foreground/70 px-2 py-1 rounded-full">
+                          {item.count}
+                        </span>
+                      )}
+                    </Button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       </nav>
+
+      {/* User Profile & Logout */}
+      <div className="p-4 border-t border-sidebar-border">
+        <div className="flex items-center gap-3 p-3 rounded-lg bg-sidebar-accent/50">
+          <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+            <span className="text-white text-sm font-medium">JD</span>
+          </div>
+          <div className="flex-1">
+            <div className="text-sm font-medium text-sidebar-foreground">John Doe</div>
+            <div className="text-xs text-sidebar-foreground/60">
+              {moduleType === "project" ? "Project Manager" : "Procurement Manager"}
+            </div>
+          </div>
+          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+        </div>
+        
+        <Button
+          variant="ghost"
+          className="w-full justify-start text-red-500 hover:bg-red-50 hover:text-red-600 mt-2"
+          onClick={() => {
+            // Add logout logic here
+            console.log("Logout clicked");
+          }}
+        >
+          <LogOut className="h-4 w-4 mr-3" />
+          Logout
+        </Button>
+      </div>
     </div>
   );
 };

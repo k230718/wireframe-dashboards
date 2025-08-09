@@ -20,8 +20,27 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          
+          {/* Project Management Routes */}
           <Route path="/project-management" element={<ProjectManagement />} />
+          <Route path="/project-management/projects" element={<ProjectManagement />} />
+          <Route path="/project-management/milestones" element={<ProjectManagement />} />
+          <Route path="/project-management/tasks" element={<ProjectManagement />} />
+          <Route path="/project-management/analytics" element={<ProjectManagement />} />
+          <Route path="/project-management/reports" element={<ProjectManagement />} />
+          <Route path="/project-management/settings" element={<ProjectManagement />} />
+          
+          {/* Procurement Routes */}
           <Route path="/procurement" element={<Procurement />} />
+          <Route path="/procurement/vendors" element={<Procurement />} />
+          <Route path="/procurement/orders" element={<Procurement />} />
+          <Route path="/procurement/requisitions" element={<Procurement />} />
+          <Route path="/procurement/contracts" element={<Procurement />} />
+          <Route path="/procurement/invoices" element={<Procurement />} />
+          <Route path="/procurement/analytics" element={<Procurement />} />
+          <Route path="/procurement/reports" element={<Procurement />} />
+          <Route path="/procurement/settings" element={<Procurement />} />
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
