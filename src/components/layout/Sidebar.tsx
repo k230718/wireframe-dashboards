@@ -46,13 +46,6 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
       ]
     },
     {
-      title: "PLANNING & ANALYTICS",
-      items: [
-        { icon: BarChart, label: "Analytics", path: "/project-management/analytics", count: null },
-        { icon: TrendingUp, label: "Reports", path: "/project-management/reports", count: null }
-      ]
-    },
-    {
       title: "SYSTEM",
       items: [
         { icon: Settings, label: "Settings", path: "/project-management/settings", count: null }
@@ -80,13 +73,6 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
       items: [
         { icon: Package, label: "Contracts", path: "/procurement/contracts", count: null },
         { icon: HandCoins, label: "Invoice Matching", path: "/procurement/invoices", count: 5 }
-      ]
-    },
-    {
-      title: "PLANNING & ANALYTICS",
-      items: [
-        { icon: BarChart, label: "Analytics", path: "/procurement/analytics", count: null },
-        { icon: TrendingUp, label: "Reports", path: "/procurement/reports", count: null }
       ]
     },
     {
