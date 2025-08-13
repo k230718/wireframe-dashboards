@@ -1,10 +1,19 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FolderOpen, ShoppingCart, BarChart3 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { FolderOpen, ShoppingCart, BarChart3, LogOut } from "lucide-react";
+import { useNavigate, Navigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { useModulePermissions } from "@/hooks/useModulePermissions";
 
 const ModuleSelection = () => {
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+  const { hasAccess } = useModulePermissions();
+
+  // Redirect to auth if not logged in
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
 
   const modules = [
     {
@@ -30,11 +39,22 @@ const ModuleSelection = () => {
       {/* Header */}
       <div className="border-b border-border bg-card">
         <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center gap-3">
-            <BarChart3 className="h-8 w-8 text-primary" />
-            <h1 className="text-2xl font-bold text-foreground">PharmaERP</h1>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <BarChart3 className="h-8 w-8 text-primary" />
+              <div>
+                <h1 className="text-2xl font-bold text-foreground">PharmaERP</h1>
+                <p className="text-muted-foreground">Enterprise Resource Planning System</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-4">
+              <span className="text-sm text-muted-foreground">Welcome, {user?.email}</span>
+              <Button variant="outline" size="sm" onClick={signOut}>
+                <LogOut className="h-4 w-4 mr-2" />
+                Sign Out
+              </Button>
+            </div>
           </div>
-          <p className="text-muted-foreground mt-1">Enterprise Resource Planning System</p>
         </div>
       </div>
 
@@ -48,10 +68,13 @@ const ModuleSelection = () => {
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {modules.map((module) => {
             const IconComponent = module.icon;
+            const moduleKey = module.path.replace('/', '');
+            const hasModuleAccess = hasAccess(moduleKey);
+            
             return (
-              <Card key={module.id} className="group hover:shadow-lg transition-all duration-300 cursor-pointer">
+              <Card key={module.id} className={`group transition-all duration-300 cursor-pointer ${hasModuleAccess ? 'hover:shadow-lg' : 'opacity-60'}`}>
                 <CardHeader className="text-center pb-4">
-                  <div className={`w-16 h-16 ${module.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`w-16 h-16 ${module.color} rounded-full flex items-center justify-center mx-auto mb-4 ${hasModuleAccess ? 'group-hover:scale-110' : ''} transition-transform duration-300`}>
                     <IconComponent className="h-8 w-8 text-white" />
                   </div>
                   <CardTitle className="text-xl">{module.title}</CardTitle>
@@ -64,8 +87,9 @@ const ModuleSelection = () => {
                     onClick={() => navigate(module.path)}
                     className="w-full"
                     size="lg"
+                    disabled={!hasModuleAccess}
                   >
-                    Access {module.title}
+                    {hasModuleAccess ? `Access ${module.title}` : 'Access Restricted'}
                   </Button>
                 </CardContent>
               </Card>
