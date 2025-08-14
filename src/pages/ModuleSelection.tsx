@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FolderOpen, ShoppingCart, BarChart3, LogOut } from "lucide-react";
+import { FolderOpen, ShoppingCart, BarChart3, LogOut, Package, TrendingUp, Truck } from "lucide-react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useModulePermissions } from "@/hooks/useModulePermissions";
@@ -31,6 +31,30 @@ const ModuleSelection = () => {
       icon: ShoppingCart,
       path: "/procurement",
       color: "bg-green-500",
+    },
+    {
+      id: "inventory",
+      title: "Inventory & Production",
+      description: "Manage warehouse operations, inventory tracking, and production workflows",
+      icon: Package,
+      path: "/inventory",
+      color: "bg-purple-500",
+    },
+    {
+      id: "sales",
+      title: "Sales, Marketing & Finance",
+      description: "Handle sales operations, marketing campaigns, and financial management",
+      icon: TrendingUp,
+      path: "/sales",
+      color: "bg-orange-500",
+    },
+    {
+      id: "supply-chain",
+      title: "Supply Chain & HR",
+      description: "Manage supply chain operations and human resources management",
+      icon: Truck,
+      path: "/supply-chain",
+      color: "bg-teal-500",
     },
   ];
 
@@ -65,7 +89,7 @@ const ModuleSelection = () => {
           <p className="text-muted-foreground text-lg">Choose a module to access its dashboard and features</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {modules.map((module) => {
             const IconComponent = module.icon;
             const moduleKey = module.path.replace('/', '');
