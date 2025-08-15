@@ -23,7 +23,7 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 
 interface SidebarProps {
-  moduleType: "project" | "procurement" | "inventory" | "sales" | "supply-chain";
+  moduleType: "project" | "procurement" | "inventory" | "production" | "sales" | "marketing" | "finance" | "supply-chain" | "hr";
 }
 
 const Sidebar = ({ moduleType }: SidebarProps) => {
