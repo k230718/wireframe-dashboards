@@ -37,15 +37,13 @@ const DepartmentRequest = () => {
     setLoading(true);
 
     try {
-      // Save request to database
-      const { error: dbError } = await supabase
-        .from('department_access_requests')
-        .insert({
-          user_id: user.id,
-          full_name: formData.fullName,
-          email: user.email || '',
-          department: formData.department,
-        });
+      // Save request to database using RPC function
+      const { error: dbError } = await supabase.rpc('insert_department_request', {
+        p_user_id: user.id,
+        p_full_name: formData.fullName,
+        p_email: user.email || '',
+        p_department: formData.department,
+      });
 
       if (dbError) {
         throw dbError;
