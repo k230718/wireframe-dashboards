@@ -47,6 +47,30 @@ export type Database = {
         }
         Relationships: []
       }
+      department_heads: {
+        Row: {
+          created_at: string
+          department: string
+          head_email: string
+          head_name: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          department: string
+          head_email: string
+          head_name?: string | null
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          department?: string
+          head_email?: string
+          head_name?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
       module_permissions: {
         Row: {
           created_at: string
@@ -109,6 +133,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_admin_user: {
+        Args: { admin_email: string }
+        Returns: undefined
+      }
       insert_department_request: {
         Args: {
           p_department: string
