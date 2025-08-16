@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FolderOpen, ShoppingCart, BarChart3, LogOut, Package, TrendingUp, Truck } from "lucide-react";
+import { FolderOpen, ShoppingCart, BarChart3, LogOut, Package, TrendingUp, Truck, Users } from "lucide-react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useModulePermissions } from "@/hooks/useModulePermissions";
@@ -16,46 +16,14 @@ const ModuleSelection = () => {
   }
 
   const modules = [
-    {
-      id: "project-management",
-      title: "Project Management",
-      description: "Manage projects, milestones, tasks, and track progress with Gantt charts",
-      icon: FolderOpen,
-      path: "/project-management",
-      color: "bg-blue-500",
-    },
-    {
-      id: "procurement",
-      title: "Procurement Management", 
-      description: "Handle vendors, purchase orders, requisitions, contracts, and invoice matching",
-      icon: ShoppingCart,
-      path: "/procurement",
-      color: "bg-green-500",
-    },
-    {
-      id: "inventory",
-      title: "Inventory & Production",
-      description: "Manage warehouse operations, inventory tracking, and production workflows",
-      icon: Package,
-      path: "/inventory",
-      color: "bg-purple-500",
-    },
-    {
-      id: "sales",
-      title: "Sales, Marketing & Finance",
-      description: "Handle sales operations, marketing campaigns, and financial management",
-      icon: TrendingUp,
-      path: "/sales",
-      color: "bg-orange-500",
-    },
-    {
-      id: "supply-chain",
-      title: "Supply Chain & HR",
-      description: "Manage supply chain operations and human resources management",
-      icon: Truck,
-      path: "/supply-chain",
-      color: "bg-teal-500",
-    },
+    { id: 'project-management', title: 'Project Management', description: 'Manage projects, tasks, and milestones', icon: FolderOpen, path: '/project-management', color: 'bg-blue-500' },
+    { id: 'procurement', title: 'Procurement', description: 'Handle purchasing and supplier management', icon: ShoppingCart, path: '/procurement', color: 'bg-green-500' },
+    { id: 'inventory', title: 'Inventory', description: 'Track stock levels and warehouse operations', icon: Package, path: '/inventory', color: 'bg-purple-500' },
+    { id: 'production', title: 'Production', description: 'Monitor manufacturing processes', icon: TrendingUp, path: '/production', color: 'bg-orange-500' },
+    { id: 'sales-marketing', title: 'Sales & Marketing', description: 'Manage sales processes and marketing campaigns', icon: TrendingUp, path: '/sales-marketing', color: 'bg-pink-500' },
+    { id: 'finance', title: 'Finance', description: 'Financial management and reporting', icon: BarChart3, path: '/finance', color: 'bg-yellow-500' },
+    { id: 'supply-chain', title: 'Supply Chain', description: 'Manage logistics and supply chain operations', icon: Truck, path: '/supply-chain', color: 'bg-teal-500' },
+    { id: 'hr', title: 'Human Resources', description: 'Employee management and HR processes', icon: Users, path: '/hr', color: 'bg-indigo-500' },
   ];
 
   return (
@@ -92,7 +60,7 @@ const ModuleSelection = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {modules.map((module) => {
             const IconComponent = module.icon;
-            const moduleKey = module.path.replace('/', '');
+            const moduleKey = module.id; // Use the id directly since it matches the database values
             const hasModuleAccess = hasAccess(moduleKey);
             
             return (

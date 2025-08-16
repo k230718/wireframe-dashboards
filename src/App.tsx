@@ -8,10 +8,14 @@ import NotFound from "./pages/NotFound";
 import ProjectManagement from "./pages/project-management/ProjectManagement";
 import Procurement from "./pages/procurement/Procurement";
 import Inventory from "./pages/inventory/Inventory";
-import Sales from "./pages/sales/Sales";
+import Production from "./pages/production/Production";
+import SalesMarketing from "./pages/sales-marketing/SalesMarketing";
+import Finance from "./pages/finance/Finance";
 import SupplyChain from "./pages/supply-chain/SupplyChain";
+import HR from "./pages/hr/HR";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
+import DepartmentRequest from "./pages/DepartmentRequest";
 import { AuthProvider } from "./hooks/useAuth";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -27,49 +31,46 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/department-request" element={<DepartmentRequest />} />
             
             {/* Protected Routes */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             
-            {/* Project Management Routes */}
+            {/* Module Routes - 8 Core Modules */}
+            
+            {/* 1. Project Management */}
             <Route path="/project-management" element={<ProtectedRoute requiredModule="project-management"><ProjectManagement /></ProtectedRoute>} />
-            <Route path="/project-management/projects" element={<ProtectedRoute requiredModule="project-management"><ProjectManagement /></ProtectedRoute>} />
-            <Route path="/project-management/milestones" element={<ProtectedRoute requiredModule="project-management"><ProjectManagement /></ProtectedRoute>} />
-            <Route path="/project-management/tasks" element={<ProtectedRoute requiredModule="project-management"><ProjectManagement /></ProtectedRoute>} />
-            <Route path="/project-management/analytics" element={<ProtectedRoute requiredModule="project-management"><ProjectManagement /></ProtectedRoute>} />
-            <Route path="/project-management/reports" element={<ProtectedRoute requiredModule="project-management"><ProjectManagement /></ProtectedRoute>} />
-            <Route path="/project-management/settings" element={<ProtectedRoute requiredModule="project-management"><ProjectManagement /></ProtectedRoute>} />
+            <Route path="/project-management/*" element={<ProtectedRoute requiredModule="project-management"><ProjectManagement /></ProtectedRoute>} />
             
-            {/* Procurement Routes */}
+            {/* 2. Procurement */}
             <Route path="/procurement" element={<ProtectedRoute requiredModule="procurement"><Procurement /></ProtectedRoute>} />
-            <Route path="/procurement/vendors" element={<ProtectedRoute requiredModule="procurement"><Procurement /></ProtectedRoute>} />
-            <Route path="/procurement/orders" element={<ProtectedRoute requiredModule="procurement"><Procurement /></ProtectedRoute>} />
-            <Route path="/procurement/requisitions" element={<ProtectedRoute requiredModule="procurement"><Procurement /></ProtectedRoute>} />
-            <Route path="/procurement/contracts" element={<ProtectedRoute requiredModule="procurement"><Procurement /></ProtectedRoute>} />
-            <Route path="/procurement/invoices" element={<ProtectedRoute requiredModule="procurement"><Procurement /></ProtectedRoute>} />
-            <Route path="/procurement/analytics" element={<ProtectedRoute requiredModule="procurement"><Procurement /></ProtectedRoute>} />
-            <Route path="/procurement/reports" element={<ProtectedRoute requiredModule="procurement"><Procurement /></ProtectedRoute>} />
-            <Route path="/procurement/settings" element={<ProtectedRoute requiredModule="procurement"><Procurement /></ProtectedRoute>} />
+            <Route path="/procurement/*" element={<ProtectedRoute requiredModule="procurement"><Procurement /></ProtectedRoute>} />
             
-            {/* Inventory & Production Routes */}
+            {/* 3. Inventory */}
             <Route path="/inventory" element={<ProtectedRoute requiredModule="inventory"><Inventory /></ProtectedRoute>} />
-            <Route path="/inventory/warehouse" element={<ProtectedRoute requiredModule="inventory"><Inventory /></ProtectedRoute>} />
-            <Route path="/inventory/production" element={<ProtectedRoute requiredModule="inventory"><Inventory /></ProtectedRoute>} />
-            <Route path="/inventory/stock" element={<ProtectedRoute requiredModule="inventory"><Inventory /></ProtectedRoute>} />
+            <Route path="/inventory/*" element={<ProtectedRoute requiredModule="inventory"><Inventory /></ProtectedRoute>} />
             
-            {/* Sales, Marketing & Finance Routes */}
-            <Route path="/sales" element={<ProtectedRoute requiredModule="sales"><Sales /></ProtectedRoute>} />
-            <Route path="/sales/orders" element={<ProtectedRoute requiredModule="sales"><Sales /></ProtectedRoute>} />
-            <Route path="/sales/marketing" element={<ProtectedRoute requiredModule="sales"><Sales /></ProtectedRoute>} />
-            <Route path="/sales/finance" element={<ProtectedRoute requiredModule="sales"><Sales /></ProtectedRoute>} />
+            {/* 4. Production */}
+            <Route path="/production" element={<ProtectedRoute requiredModule="production"><Production /></ProtectedRoute>} />
+            <Route path="/production/*" element={<ProtectedRoute requiredModule="production"><Production /></ProtectedRoute>} />
             
-            {/* Supply Chain & HR Routes */}
+            {/* 5. Sales & Marketing */}
+            <Route path="/sales-marketing" element={<ProtectedRoute requiredModule="sales-marketing"><SalesMarketing /></ProtectedRoute>} />
+            <Route path="/sales-marketing/*" element={<ProtectedRoute requiredModule="sales-marketing"><SalesMarketing /></ProtectedRoute>} />
+            
+            {/* 6. Finance */}
+            <Route path="/finance" element={<ProtectedRoute requiredModule="finance"><Finance /></ProtectedRoute>} />
+            <Route path="/finance/*" element={<ProtectedRoute requiredModule="finance"><Finance /></ProtectedRoute>} />
+            
+            {/* 7. Supply Chain */}
             <Route path="/supply-chain" element={<ProtectedRoute requiredModule="supply-chain"><SupplyChain /></ProtectedRoute>} />
-            <Route path="/supply-chain/logistics" element={<ProtectedRoute requiredModule="supply-chain"><SupplyChain /></ProtectedRoute>} />
-            <Route path="/supply-chain/suppliers" element={<ProtectedRoute requiredModule="supply-chain"><SupplyChain /></ProtectedRoute>} />
-            <Route path="/supply-chain/hr" element={<ProtectedRoute requiredModule="supply-chain"><SupplyChain /></ProtectedRoute>} />
+            <Route path="/supply-chain/*" element={<ProtectedRoute requiredModule="supply-chain"><SupplyChain /></ProtectedRoute>} />
             
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            {/* 8. Human Resources */}
+            <Route path="/hr" element={<ProtectedRoute requiredModule="hr"><HR /></ProtectedRoute>} />
+            <Route path="/hr/*" element={<ProtectedRoute requiredModule="hr"><HR /></ProtectedRoute>} />
+            
+            {/* 404 - Must be last */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

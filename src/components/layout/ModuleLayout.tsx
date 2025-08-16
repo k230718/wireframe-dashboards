@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 
 interface ModuleLayoutProps {
   children: ReactNode;
-  moduleType: "project" | "procurement" | "inventory" | "production" | "sales" | "marketing" | "finance" | "supply-chain" | "hr";
+  moduleType: "project" | "procurement" | "inventory" | "production" | "sales-marketing" | "finance" | "supply-chain" | "hr";
 }
 
 const ModuleLayout = ({ children, moduleType }: ModuleLayoutProps) => {

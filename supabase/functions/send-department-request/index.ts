@@ -1,12 +1,17 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+const supabase = createClient(
+  Deno.env.get('SUPABASE_URL') ?? '',
+  Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+);
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 interface DepartmentRequestData {
@@ -15,16 +20,25 @@ interface DepartmentRequestData {
   department: string;
 }
 
-const departmentHeads = {
-  "project-management": "pm-head@pharmaerp.com",
-  "procurement": "procurement-head@pharmaerp.com",
-  "inventory": "inventory-head@pharmaerp.com",
-  "production": "production-head@pharmaerp.com",
-  "sales": "sales-head@pharmaerp.com",
-  "marketing": "marketing-head@pharmaerp.com",
-  "finance": "finance-head@pharmaerp.com",
-  "supply-chain": "supply-chain-head@pharmaerp.com",
-  "hr": "hr-head@pharmaerp.com"
+// Department heads will be fetched from database
+const getDepartmentHead = async (department: string): Promise<string | null> => {
+  try {
+    const { data, error } = await supabase
+      .from('department_heads')
+      .select('head_email')
+      .eq('department', department)
+      .single();
+    
+    if (error) {
+      console.error('Error fetching department head:', error);
+      return null;
+    }
+    
+    return data?.head_email || null;
+  } catch (error) {
+    console.error('Error in getDepartmentHead:', error);
+    return null;
+  }
 };
 
 const handler = async (req: Request): Promise<Response> => {
@@ -35,14 +49,14 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const { fullName, email, department }: DepartmentRequestData = await req.json();
 
-    const departmentHead = departmentHeads[department as keyof typeof departmentHeads];
-    
+    // Get department head email from database
+    const departmentHead = await getDepartmentHead(department);
     if (!departmentHead) {
       return new Response(
-        JSON.stringify({ error: "Invalid department" }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
+        JSON.stringify({ error: 'Department head not found' }),
+        { 
+          status: 400, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
         }
       );
     }
@@ -68,9 +82,9 @@ const handler = async (req: Request): Promise<Response> => {
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
-      headers: {
+      headers: { 
         "Content-Type": "application/json",
-        ...corsHeaders,
+        ...corsHeaders 
       },
     });
   } catch (error: any) {

@@ -18,73 +18,128 @@ import {
   BarChart,
   Cog,
   LogOut,
-  ChevronLeft
+  ChevronLeft,
+  Calculator,
+  Truck,
+  Target,
+  Building,
+  CheckSquare,
+  MapPin,
+  ClipboardList,
+  Shield,
+  Megaphone,
+  PieChart,
+  Receipt,
+  UserPlus,
+  DollarSign,
+  LayoutDashboard
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 interface SidebarProps {
-  moduleType: "project" | "procurement" | "inventory" | "production" | "sales" | "marketing" | "finance" | "supply-chain" | "hr";
+  moduleType: "project" | "procurement" | "inventory" | "production" | "sales-marketing" | "finance" | "supply-chain" | "hr";
 }
 
 const Sidebar = ({ moduleType }: SidebarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const projectSections = [
-    {
-      title: "OVERVIEW",
-      items: [
-        { icon: Home, label: "Dashboard", path: "/project-management", count: null }
-      ]
-    },
-    {
-      title: "PROJECT MANAGEMENT",
-      items: [
-        { icon: FolderOpen, label: "Projects", path: "/project-management/projects", count: null },
-        { icon: Calendar, label: "Milestones", path: "/project-management/milestones", count: null },
-        { icon: FileText, label: "Tasks", path: "/project-management/tasks", count: 12 }
-      ]
-    },
-    {
-      title: "SYSTEM",
-      items: [
-        { icon: Settings, label: "Settings", path: "/project-management/settings", count: null }
-      ]
+  const getModuleConfig = () => {
+    switch (moduleType) {
+      case "project":
+        return {
+          title: "Project Management",
+          items: [
+            { href: "/project-management", icon: LayoutDashboard, label: "Dashboard" },
+            { href: "/project-management/projects", icon: FolderOpen, label: "Projects" },
+            { href: "/project-management/tasks", icon: CheckSquare, label: "Tasks" },
+            { href: "/project-management/calendar", icon: Calendar, label: "Calendar" },
+            { href: "/project-management/team", icon: Users, label: "Team" },
+          ]
+        };
+      case "procurement":
+        return {
+          title: "Procurement",
+          items: [
+            { href: "/procurement", icon: Home, label: "Dashboard" },
+            { href: "/procurement/suppliers", icon: Building, label: "Suppliers" },
+            { href: "/procurement/orders", icon: ShoppingCart, label: "Purchase Orders" },
+            { href: "/procurement/contracts", icon: FileText, label: "Contracts" },
+            { href: "/procurement/budget", icon: DollarSign, label: "Budget" },
+          ]
+        };
+      case "inventory":
+        return {
+          title: "Inventory",
+          items: [
+            { href: "/inventory", icon: Home, label: "Dashboard" },
+            { href: "/inventory/items", icon: Package, label: "Items" },
+            { href: "/inventory/stock", icon: BarChart3, label: "Stock Levels" },
+            { href: "/inventory/locations", icon: MapPin, label: "Locations" },
+            { href: "/inventory/movements", icon: TrendingUp, label: "Stock Movements" },
+          ]
+        };
+      case "production":
+        return {
+          title: "Production",
+          items: [
+            { href: "/production", icon: Home, label: "Dashboard" },
+            { href: "/production/planning", icon: Calendar, label: "Production Planning" },
+            { href: "/production/orders", icon: ClipboardList, label: "Work Orders" },
+            { href: "/production/quality", icon: Shield, label: "Quality Control" },
+            { href: "/production/equipment", icon: Settings, label: "Equipment" },
+          ]
+        };
+      case "sales-marketing":
+        return {
+          title: "Sales & Marketing",
+          items: [
+            { href: "/sales-marketing", icon: Home, label: "Dashboard" },
+            { href: "/sales-marketing/sales", icon: TrendingUp, label: "Sales" },
+            { href: "/sales-marketing/marketing", icon: Megaphone, label: "Marketing" },
+            { href: "/sales-marketing/leads", icon: Users, label: "Lead Management" },
+            { href: "/sales-marketing/campaigns", icon: Target, label: "Campaigns" },
+          ]
+        };
+      case "finance":
+        return {
+          title: "Finance",
+          items: [
+            { href: "/finance", icon: Home, label: "Dashboard" },
+            { href: "/finance/accounting", icon: Calculator, label: "Accounting" },
+            { href: "/finance/budgeting", icon: PieChart, label: "Budgeting" },
+            { href: "/finance/reporting", icon: FileText, label: "Financial Reporting" },
+            { href: "/finance/invoicing", icon: Receipt, label: "Invoicing" },
+          ]
+        };
+      case "supply-chain":
+        return {
+          title: "Supply Chain",
+          items: [
+            { href: "/supply-chain", icon: Home, label: "Dashboard" },
+            { href: "/supply-chain/logistics", icon: Truck, label: "Logistics" },
+            { href: "/supply-chain/planning", icon: Calendar, label: "Planning" },
+            { href: "/supply-chain/tracking", icon: MapPin, label: "Shipment Tracking" },
+            { href: "/supply-chain/analytics", icon: BarChart3, label: "Analytics" },
+          ]
+        };
+      case "hr":
+        return {
+          title: "Human Resources",
+          items: [
+            { href: "/hr", icon: Home, label: "Dashboard" },
+            { href: "/hr/employees", icon: Users, label: "Employee Management" },
+            { href: "/hr/recruitment", icon: UserPlus, label: "Recruitment" },
+            { href: "/hr/payroll", icon: DollarSign, label: "Payroll" },
+            { href: "/hr/performance", icon: Target, label: "Performance" },
+          ]
+        };
+      default:
+        return { title: "Dashboard", items: [] };
     }
-  ];
+  };
 
-  const procurementSections = [
-    {
-      title: "OVERVIEW", 
-      items: [
-        { icon: Home, label: "Dashboard", path: "/procurement", count: null }
-      ]
-    },
-    {
-      title: "PROCUREMENT",
-      items: [
-        { icon: Users, label: "Vendors", path: "/procurement/vendors", count: null },
-        { icon: ShoppingCart, label: "Purchase Orders", path: "/procurement/orders", count: 8 },
-        { icon: FileText, label: "Requisitions", path: "/procurement/requisitions", count: 3 }
-      ]
-    },
-    {
-      title: "CONTRACTS & PAYMENTS",
-      items: [
-        { icon: Package, label: "Contracts", path: "/procurement/contracts", count: null },
-        { icon: HandCoins, label: "Invoice Matching", path: "/procurement/invoices", count: 5 }
-      ]
-    },
-    {
-      title: "SYSTEM",
-      items: [
-        { icon: Settings, label: "Settings", path: "/procurement/settings", count: null }
-      ]
-    }
-  ];
-
-  const sections = moduleType === "project" ? projectSections : procurementSections;
-  const moduleTitle = moduleType === "project" ? "Project Management" : "Procurement Management";
+  const config = getModuleConfig();
 
   return (
     <div className="w-80 bg-sidebar border-r border-sidebar-border h-screen flex flex-col">
@@ -96,7 +151,7 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
           </div>
           <div className="flex-1">
             <div className="font-semibold text-sidebar-foreground">PharmaERP</div>
-            <div className="text-sm text-sidebar-foreground/70">{moduleTitle}</div>
+            <div className="text-sm text-sidebar-foreground/70">{config.title}</div>
           </div>
           <Button
             variant="ghost"
@@ -120,40 +175,26 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
 
       {/* Navigation */}
       <nav className="flex-1 p-4 overflow-y-auto">
-        <div className="space-y-6">
-          {sections.map((section) => (
-            <div key={section.title}>
-              <h3 className="text-xs font-medium text-sidebar-foreground/60 uppercase tracking-wider mb-3">
-                {section.title}
-              </h3>
-              <div className="space-y-1">
-                {section.items.map((item) => {
-                  const IconComponent = item.icon;
-                  const isActive = location.pathname === item.path;
-                  
-                  return (
-                    <Button
-                      key={item.path}
-                      variant="ghost"
-                      className={cn(
-                        "w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent rounded-lg h-10",
-                        isActive && "bg-blue-50 text-blue-600 hover:bg-blue-50"
-                      )}
-                      onClick={() => navigate(item.path)}
-                    >
-                      <IconComponent className="h-5 w-5 mr-3" />
-                      <span className="flex-1 text-left">{item.label}</span>
-                      {item.count && (
-                        <span className="ml-auto text-xs bg-sidebar-accent text-sidebar-foreground/70 px-2 py-1 rounded-full">
-                          {item.count}
-                        </span>
-                      )}
-                    </Button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
+        <div className="space-y-1">
+          {config.items.map((item) => {
+            const IconComponent = item.icon;
+            const isActive = location.pathname === item.href;
+            
+            return (
+              <Button
+                key={item.href}
+                variant="ghost"
+                className={cn(
+                  "w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent rounded-lg h-10",
+                  isActive && "bg-blue-50 text-blue-600 hover:bg-blue-50"
+                )}
+                onClick={() => navigate(item.href)}
+              >
+                <IconComponent className="h-5 w-5 mr-3" />
+                <span className="flex-1 text-left">{item.label}</span>
+              </Button>
+            );
+          })}
         </div>
       </nav>
 
@@ -165,9 +206,7 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
           </div>
           <div className="flex-1">
             <div className="text-sm font-medium text-sidebar-foreground">John Doe</div>
-            <div className="text-xs text-sidebar-foreground/60">
-              {moduleType === "project" ? "Project Manager" : "Procurement Manager"}
-            </div>
+            <div className="text-xs text-sidebar-foreground/60">Manager</div>
           </div>
           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
         </div>
