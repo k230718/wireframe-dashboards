@@ -1141,7 +1141,7 @@ function AccountsPayable() {
  * - Component rendering based on selected navigation
  */
 interface FinancialManagementProps {
-  onSwitchToSales: () => void;
+  onSwitchToSales?: () => void;
 }
 
 function FinancialManagement({ onSwitchToSales }: FinancialManagementProps) {

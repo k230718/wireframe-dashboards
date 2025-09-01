@@ -29,7 +29,7 @@ function Sidebar({ activeItem, setActiveItem, isCollapsed, setIsCollapsed, onLog
   setActiveItem: (item: string) => void;
   isCollapsed: boolean;
   setIsCollapsed: (collapsed: boolean) => void;
-  onLogout: () => void;
+  onLogout?: () => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
 

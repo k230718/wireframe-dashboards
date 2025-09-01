@@ -73,8 +73,7 @@ const DepartmentRequest = () => {
 
       setFormData({ fullName: '', department: '' });
 
-      // Added: Sign out and redirect to auth page after success
-      await signOut();
+      // Redirect to auth page after success to prevent staying logged in
       navigate('/auth');
     } catch (error: any) {
       console.error('Error submitting request:', error);
@@ -147,12 +146,9 @@ const DepartmentRequest = () => {
             <Button 
               variant="outline" 
               className="w-full mt-4" 
-              onClick={async () => {
-                await signOut();
-                navigate('/auth');
-              }}
+              onClick={() => navigate('/auth')}
             >
-              Sign Out
+              Back to Sign In
             </Button>
           </form>
         </CardContent>

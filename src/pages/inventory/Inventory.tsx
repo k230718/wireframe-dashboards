@@ -23,7 +23,7 @@ interface NavigationItem {
 
 interface SidebarProps {
   onNavigate: (itemId: string) => void;
-  onLogout: () => void;
+  onLogout?: () => void;
 }
 
 interface InventoryItem {

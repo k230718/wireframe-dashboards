@@ -776,7 +776,7 @@ const SalesMarketingSidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab
 
 // Main Component
 interface SalesMarketingModuleProps {
-  onSwitchToFinancial: () => void;
+  onSwitchToFinancial?: () => void;
 }
 
 const SalesMarketingModule: React.FC<SalesMarketingModuleProps> = ({ onSwitchToFinancial }) => {
