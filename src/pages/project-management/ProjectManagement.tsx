@@ -15,27 +15,33 @@ const ProjectManagement = () => {
   // Sample data
   const projects = [
     {
+      id: "proj-001",
       name: "COVID-19 Vaccine Development",
       description: "Development of mRNA-based COVID-19 vaccine",
       manager: "Dr. Sarah Johnson",
       status: "In Progress",
       budget: "$2,500,000",
+      hours: "1500h",
       endDate: "12/15/2024",
     },
     {
+      id: "proj-002",
       name: "Diabetes Treatment Research",
       description: "Novel insulin delivery system research",
       manager: "Dr. Michael Chen",
       status: "Planned",
       budget: "$1,800,000",
+      hours: "1200h",
       endDate: "11/30/2024",
     },
     {
+      id: "proj-003",
       name: "Cancer Immunotherapy",
       description: "CAR-T cell therapy development",
       manager: "Dr. Emily Rodriguez",
       status: "Completed",
       budget: "$3,200,000",
+      hours: "2000h",
       endDate: "5/31/2024",
     },
   ];
@@ -205,9 +211,153 @@ const ProjectManagement = () => {
           </Card>
         </div>
       );
-    }
-
-    if (location.pathname === "/project-management/milestones") {
+    } else if (location.pathname === "/project-management/calendar") {
+      return (
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">Project Calendar</h1>
+              <p className="text-muted-foreground">View project schedules and milestones</p>
+            </div>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Add Event
+            </Button>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Calendar Overview */}
+            <Card className="lg:col-span-2">
+              <CardHeader>
+                <CardTitle>Project Timeline</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {projects.map((project) => (
+                    <div key={project.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div>
+                        <h3 className="font-medium">{project.name}</h3>
+                        <p className="text-sm text-muted-foreground">Due: {project.endDate}</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Badge variant="outline">{project.hours}</Badge>
+                        {getStatusBadge(project.status)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Upcoming Milestones */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Upcoming Milestones</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium">Phase 1 Complete</p>
+                      <p className="text-sm text-muted-foreground">Jul 15, 2024</p>
+                    </div>
+                    <Badge variant="secondary">3 days</Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium">Beta Testing</p>
+                      <p className="text-sm text-muted-foreground">Jul 20, 2024</p>
+                    </div>
+                    <Badge variant="outline">8 days</Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium">Final Review</p>
+                      <p className="text-sm text-muted-foreground">Jul 28, 2024</p>
+                    </div>
+                    <Badge variant="outline">16 days</Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      );
+    } else if (location.pathname === "/project-management/teams") {
+      return (
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">Team Management</h1>
+              <p className="text-muted-foreground">Manage project teams and assignments</p>
+            </div>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Add Team Member
+            </Button>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Team Members */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Active Team Members</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {[
+                    { name: "John Smith", role: "Project Manager", projects: 3, avatar: "JS" },
+                    { name: "Sarah Connor", role: "Developer", projects: 2, avatar: "SC" },
+                    { name: "Mike Johnson", role: "Designer", projects: 4, avatar: "MJ" },
+                    { name: "Lisa Wang", role: "QA Engineer", projects: 2, avatar: "LW" }
+                  ].map((member, index) => (
+                    <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                          <span className="text-primary-foreground font-medium text-sm">{member.avatar}</span>
+                        </div>
+                        <div>
+                          <p className="font-medium">{member.name}</p>
+                          <p className="text-sm text-muted-foreground">{member.role}</p>
+                        </div>
+                      </div>
+                      <Badge variant="secondary">{member.projects} projects</Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Project Assignments */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Project Assignments</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {projects.map((project) => (
+                    <div key={project.id} className="p-4 border rounded-lg">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="font-medium">{project.name}</h3>
+                        {getStatusBadge(project.status)}
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-2">Team Size: 4 members</p>
+                      <div className="flex -space-x-1">
+                        {["JS", "SC", "MJ", "LW"].map((initial, index) => (
+                          <div key={index} className="w-6 h-6 bg-primary rounded-full flex items-center justify-center border-2 border-background">
+                            <span className="text-primary-foreground text-xs">{initial}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      );
+    } else if (location.pathname === "/project-management/milestones") {
       return (
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
@@ -267,9 +417,7 @@ const ProjectManagement = () => {
           </Card>
         </div>
       );
-    }
-
-    if (location.pathname === "/project-management/tasks") {
+    } else if (location.pathname === "/project-management/tasks") {
       return (
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
@@ -346,10 +494,9 @@ const ProjectManagement = () => {
           </Card>
         </div>
       );
-    }
-
-    // Settings page placeholder
-    return (
+    } else {
+      // Settings page placeholder
+      return (
       <div className="p-6">
         <div className="flex items-center justify-center h-96 border-2 border-dashed border-border rounded-lg">
           <div className="text-center">
@@ -358,8 +505,9 @@ const ProjectManagement = () => {
             <p className="text-muted-foreground">This page is under development.</p>
           </div>
         </div>
-      </div>
-    );
+        </div>
+      );
+    }
   };
 
   return (

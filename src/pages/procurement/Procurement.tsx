@@ -192,9 +192,285 @@ const Procurement = () => {
           </Card>
         </div>
       );
-    }
-
-    if (location.pathname === "/procurement/orders") {
+    } else if (location.pathname === "/procurement/suppliers") {
+      return (
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">Supplier Management</h1>
+              <p className="text-muted-foreground">Manage supplier relationships and performance</p>
+            </div>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Add Supplier
+            </Button>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Active Suppliers</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-primary">24</div>
+                <p className="text-sm text-muted-foreground">+3 this month</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Total Spend</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-primary">$1.2M</div>
+                <p className="text-sm text-muted-foreground">Last 12 months</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Top Performer</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-lg font-semibold">PharmaCorp Inc</div>
+                <p className="text-sm text-muted-foreground">98% on-time delivery</p>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>Supplier Directory</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Supplier Name</TableHead>
+                    <TableHead>Category</TableHead>
+                    <TableHead>Contact</TableHead>
+                    <TableHead>Performance</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {[
+                    { name: "PharmaCorp Inc", category: "Raw Materials", contact: "john@pharmacorp.com", performance: "98%", status: "Active" },
+                    { name: "MedSupply Ltd", category: "Equipment", contact: "sarah@medsupply.com", performance: "95%", status: "Active" },
+                    { name: "ChemSource Co", category: "Chemicals", contact: "mike@chemsource.com", performance: "92%", status: "Review" }
+                  ].map((supplier, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">{supplier.name}</TableCell>
+                      <TableCell>{supplier.category}</TableCell>
+                      <TableCell>{supplier.contact}</TableCell>
+                      <TableCell>
+                        <Badge variant={parseInt(supplier.performance) > 95 ? "default" : "secondary"}>
+                          {supplier.performance}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={supplier.status === "Active" ? "default" : "outline"}>
+                          {supplier.status}
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </div>
+      );
+    } else if (location.pathname === "/procurement/contracts") {
+      return (
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">Contract Management</h1>
+              <p className="text-muted-foreground">Track and manage supplier contracts</p>
+            </div>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              New Contract
+            </Button>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Active Contracts</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-primary">18</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Expiring Soon</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-orange-500">3</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Under Review</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-blue-500">2</div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Total Value</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-green-500">$2.4M</div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>Contract Overview</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Contract ID</TableHead>
+                    <TableHead>Supplier</TableHead>
+                    <TableHead>Value</TableHead>
+                    <TableHead>Start Date</TableHead>
+                    <TableHead>End Date</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {[
+                    { id: "CNT-001", supplier: "PharmaCorp Inc", value: "$500K", start: "2024-01-01", end: "2024-12-31", status: "Active" },
+                    { id: "CNT-002", supplier: "MedSupply Ltd", value: "$300K", start: "2024-02-15", end: "2024-08-15", status: "Expiring" },
+                    { id: "CNT-003", supplier: "ChemSource Co", value: "$200K", start: "2024-03-01", end: "2025-03-01", status: "Active" }
+                  ].map((contract, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">{contract.id}</TableCell>
+                      <TableCell>{contract.supplier}</TableCell>
+                      <TableCell>{contract.value}</TableCell>
+                      <TableCell>{contract.start}</TableCell>
+                      <TableCell>{contract.end}</TableCell>
+                      <TableCell>
+                        <Badge variant={contract.status === "Active" ? "default" : contract.status === "Expiring" ? "destructive" : "outline"}>
+                          {contract.status}
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </div>
+      );
+    } else if (location.pathname === "/procurement/budget") {
+      return (
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">Budget Management</h1>
+              <p className="text-muted-foreground">Track procurement budgets and spending</p>
+            </div>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Set Budget
+            </Button>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Total Budget</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-primary">$2.5M</div>
+                <p className="text-sm text-muted-foreground">FY 2024</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Spent</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-orange-500">$1.8M</div>
+                <p className="text-sm text-muted-foreground">72% utilized</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Remaining</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-green-500">$700K</div>
+                <p className="text-sm text-muted-foreground">28% available</p>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Budget by Category</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {[
+                    { category: "Raw Materials", budget: "$1M", spent: "$750K", percentage: 75 },
+                    { category: "Equipment", budget: "$800K", spent: "$600K", percentage: 75 },
+                    { category: "Services", budget: "$400K", spent: "$280K", percentage: 70 },
+                    { category: "Maintenance", budget: "$300K", spent: "$170K", percentage: 57 }
+                  ].map((item, index) => (
+                    <div key={index} className="space-y-2">
+                      <div className="flex justify-between">
+                        <span className="font-medium">{item.category}</span>
+                        <span className="text-sm text-muted-foreground">{item.spent} / {item.budget}</span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2">
+                        <div 
+                          className={`h-2 rounded-full ${item.percentage > 80 ? 'bg-red-500' : item.percentage > 60 ? 'bg-orange-500' : 'bg-green-500'}`}
+                          style={{ width: `${item.percentage}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Recent Expenses</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {[
+                    { description: "Raw Material Purchase", amount: "$45,000", date: "Jul 10, 2024", category: "Raw Materials" },
+                    { description: "Equipment Maintenance", amount: "$12,500", date: "Jul 08, 2024", category: "Services" },
+                    { description: "New Packaging Machine", amount: "$85,000", date: "Jul 05, 2024", category: "Equipment" }
+                  ].map((expense, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                      <div>
+                        <p className="font-medium">{expense.description}</p>
+                        <p className="text-sm text-muted-foreground">{expense.category} • {expense.date}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-medium">{expense.amount}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      );
+    } else if (location.pathname === "/procurement/orders") {
       return (
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
@@ -275,10 +551,9 @@ const Procurement = () => {
           </Card>
         </div>
       );
-    }
-
-    // Default placeholder for other routes
-    return (
+    } else {
+      // Default placeholder for other routes
+      return (
       <div className="p-6">
         <div className="flex items-center justify-center h-96 border-2 border-dashed border-border rounded-lg">
           <div className="text-center">
@@ -287,8 +562,9 @@ const Procurement = () => {
             <p className="text-muted-foreground">This page is under development.</p>
           </div>
         </div>
-      </div>
-    );
+        </div>
+      );
+    }
   };
 
   return (
