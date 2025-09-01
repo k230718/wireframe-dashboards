@@ -17,12 +17,15 @@ const Index = () => {
     );
   }
 
+  // Redirect to auth if not logged in - ALWAYS START WITH AUTH
   if (!user) {
     return <Navigate to="/auth" replace />;
   }
 
-  // If user has no module permissions, redirect to department request
-  if (permissions.length === 0 || !permissions.some(p => p.has_access)) {
+  // Check if user has any access - only redirect new users to department request
+  const hasAnyAccess = permissions.some(p => p.has_access);
+  
+  if (!hasAnyAccess) {
     return <Navigate to="/department-request" replace />;
   }
 
