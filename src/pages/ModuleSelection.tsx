@@ -22,7 +22,7 @@ const ModuleSelection = () => {
     { id: 'production', title: 'Production', description: 'Monitor manufacturing processes', icon: TrendingUp, path: '/production', color: 'bg-orange-500' },
     { id: 'sales-marketing', title: 'Sales & Marketing', description: 'Manage sales processes and marketing campaigns', icon: TrendingUp, path: '/sales-marketing', color: 'bg-pink-500' },
     { id: 'finance', title: 'Finance', description: 'Financial management and reporting', icon: BarChart3, path: '/finance', color: 'bg-yellow-500' },
-    { id: 'supply-chain', title: 'Supply Chain', description: 'Manage logistics and supply chain operations', icon: Truck, path: '/supply-chain', color: 'bg-teal-500' },
+    { id: 'supply-chain', title: 'Supply Chain', description: 'Manage logistics and supply chain operations', icon: Truck, path: '/hr', color: 'bg-teal-500' },
     { id: 'hr', title: 'Human Resources', description: 'Employee management and HR processes', icon: Users, path: '/hr', color: 'bg-indigo-500' },
   ];
 

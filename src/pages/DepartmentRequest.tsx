@@ -8,6 +8,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';  // Added import for navigation
 
 const departments = [
   { value: 'project-management', label: 'Project Management' },
@@ -21,7 +22,8 @@ const departments = [
 ];
 
 const DepartmentRequest = () => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();  // Added signOut from useAuth
+  const navigate = useNavigate();  // Added for redirection
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -70,6 +72,10 @@ const DepartmentRequest = () => {
       });
 
       setFormData({ fullName: '', department: '' });
+
+      // Added: Sign out and redirect to auth page after success
+      await signOut();
+      navigate('/auth');
     } catch (error: any) {
       console.error('Error submitting request:', error);
       toast({
@@ -137,6 +143,16 @@ const DepartmentRequest = () => {
             <Button type="submit" className="w-full" disabled={loading}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Submit Request
+            </Button>
+            <Button 
+              variant="outline" 
+              className="w-full mt-4" 
+              onClick={async () => {
+                await signOut();
+                navigate('/auth');
+              }}
+            >
+              Sign Out
             </Button>
           </form>
         </CardContent>
