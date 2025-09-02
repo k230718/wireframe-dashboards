@@ -10,6 +10,7 @@ interface ModulePermission {
 export const useModulePermissions = () => {
   const { user } = useAuth();
   const [permissions, setPermissions] = useState<ModulePermission[]>([]);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,17 +22,27 @@ export const useModulePermissions = () => {
 
     const fetchPermissions = async () => {
       try {
-        const { data, error } = await supabase
-          .from('module_permissions')
-          .select('module_name, has_access')
-          .eq('user_id', user.id);
+        const [profileResult, permsResult] = await Promise.all([
+          supabase
+            .from('profiles')
+            .select('role')
+            .eq('user_id', user.id)
+            .single(),
+          supabase
+            .from('module_permissions')
+            .select('module_name, has_access')
+            .eq('user_id', user.id)
+        ]);
 
-        if (error) {
-          console.error('Error fetching permissions:', error);
-          return;
+        if (profileResult.error) {
+          console.error('Error fetching profile:', profileResult.error);
         }
+        setIsAdmin(profileResult.data?.role === 'admin');
 
-        setPermissions(data || []);
+        if (permsResult.error) {
+          console.error('Error fetching permissions:', permsResult.error);
+        }
+        setPermissions(permsResult.data || []);
       } catch (error) {
         console.error('Error fetching permissions:', error);
       } finally {
@@ -43,6 +54,7 @@ export const useModulePermissions = () => {
   }, [user]);
 
   const hasAccess = (moduleName: string) => {
+    if (isAdmin) return true;
     const permission = permissions.find(p => p.module_name === moduleName);
     return permission?.has_access || false;
   };

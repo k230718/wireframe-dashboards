@@ -54,7 +54,7 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
             { href: "/project-management/projects", icon: FolderOpen, label: "Projects" },
             { href: "/project-management/tasks", icon: CheckSquare, label: "Tasks" },
             { href: "/project-management/calendar", icon: Calendar, label: "Calendar" },
-            { href: "/project-management/team", icon: Users, label: "Team" },
+            { href: "/project-management/teams", icon: Users, label: "Teams" },
           ]
         };
       case "procurement":
