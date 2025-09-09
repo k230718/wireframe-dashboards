@@ -47,9 +47,6 @@ const BudgetManagement = () => {
           <h1 className="text-3xl font-bold text-foreground">Budget Management</h1>
           <p className="text-muted-foreground">Plan and track departmental and project budgets</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
-          Switch to Sales Module
-        </Button>
       </div>
 
       <Card>

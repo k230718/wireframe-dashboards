@@ -97,10 +97,11 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
           title: "Sales & Marketing",
           items: [
             { href: "/sales-marketing", icon: Home, label: "Dashboard" },
-            { href: "/sales-marketing/sales", icon: TrendingUp, label: "Sales" },
-            { href: "/sales-marketing/marketing", icon: Megaphone, label: "Marketing" },
-            { href: "/sales-marketing/leads", icon: Users, label: "Lead Management" },
-            { href: "/sales-marketing/campaigns", icon: Target, label: "Campaigns" },
+            { href: "/sales-marketing/customers", icon: Users, label: "Customers" },
+            { href: "/sales-marketing/orders", icon: ShoppingCart, label: "Sales Orders" },
+            { href: "/sales-marketing/leads", icon: Target, label: "Leads" },
+            { href: "/sales-marketing/opportunities", icon: TrendingUp, label: "Opportunities" },
+            { href: "/sales-marketing/campaigns", icon: Megaphone, label: "Campaigns" },
           ]
         };
       case "finance":

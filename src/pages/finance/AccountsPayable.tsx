@@ -57,9 +57,6 @@ const AccountsPayable = () => {
           <h1 className="text-3xl font-bold text-foreground">Accounts Payable</h1>
           <p className="text-muted-foreground">Manage supplier invoices and payments</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
-          Switch to Sales Module
-        </Button>
       </div>
 
       <Card>

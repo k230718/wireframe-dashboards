@@ -1,6 +1,11 @@
 import { useLocation } from "react-router-dom";
 import ModuleLayout from "@/components/layout/ModuleLayout";
 import SalesMarketingDashboard from "./SalesMarketingDashboard";
+import Customers from "./Customers";
+import SalesOrders from "./SalesOrders";
+import Leads from "./Leads";
+import Opportunities from "./Opportunities";
+import Campaigns from "./Campaigns";
 
 const SalesMarketing = () => {
   const location = useLocation();
@@ -18,31 +23,27 @@ const SalesMarketing = () => {
   const renderContent = () => {
     switch (location.pathname) {
       case "/sales-marketing/customers":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Customer Management</h1>
-            <p className="text-muted-foreground">Manage customer relationships and accounts.</p>
-          </div>
-        );
+        return <Customers />;
       case "/sales-marketing/orders":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Sales Orders</h1>
-            <p className="text-muted-foreground">Track and manage sales orders.</p>
-          </div>
-        );
-      case "/sales-marketing/campaigns":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Marketing Campaigns</h1>
-            <p className="text-muted-foreground">Create and manage marketing campaigns.</p>
-          </div>
-        );
+        return <SalesOrders />;
       case "/sales-marketing/leads":
+        return <Leads />;
+      case "/sales-marketing/opportunities":
+        return <Opportunities />;
+      case "/sales-marketing/campaigns":
+        return <Campaigns />;
+      case "/sales-marketing/sales":
         return (
           <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Lead Management</h1>
-            <p className="text-muted-foreground">Track and convert sales leads.</p>
+            <h1 className="text-2xl font-bold mb-4">Sales</h1>
+            <p className="text-muted-foreground">Manage sales activities and opportunities.</p>
+          </div>
+        );
+      case "/sales-marketing/marketing":
+        return (
+          <div className="p-6">
+            <h1 className="text-2xl font-bold mb-4">Marketing</h1>
+            <p className="text-muted-foreground">Manage marketing campaigns and analytics.</p>
           </div>
         );
       default:
