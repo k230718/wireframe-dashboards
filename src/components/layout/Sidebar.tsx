@@ -32,7 +32,9 @@ import {
   Receipt,
   UserPlus,
   DollarSign,
-  LayoutDashboard
+  LayoutDashboard,
+  BookOpen,
+  CreditCard
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -106,10 +108,11 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
           title: "Finance",
           items: [
             { href: "/finance", icon: Home, label: "Dashboard" },
-            { href: "/finance/accounting", icon: Calculator, label: "Accounting" },
-            { href: "/finance/budgeting", icon: PieChart, label: "Budgeting" },
-            { href: "/finance/reporting", icon: FileText, label: "Financial Reporting" },
-            { href: "/finance/invoicing", icon: Receipt, label: "Invoicing" },
+            { href: "/finance/accounts", icon: BookOpen, label: "Chart of Accounts" },
+            { href: "/finance/payables", icon: CreditCard, label: "Payables" },
+            { href: "/finance/receivables", icon: Receipt, label: "Receivables" },
+            { href: "/finance/budgets", icon: Target, label: "Budgets" },
+            { href: "/finance/reports", icon: BarChart3, label: "Analytics" },
           ]
         };
       case "supply-chain":

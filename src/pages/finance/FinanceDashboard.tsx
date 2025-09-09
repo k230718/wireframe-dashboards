@@ -1,123 +1,187 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { DollarSign, TrendingUp, TrendingDown, CreditCard } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { DollarSign, TrendingUp, TrendingDown, CreditCard, Plus, FileText, Eye, Target } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const FinanceDashboard = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="p-6 space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">Finance Dashboard</h1>
-        <p className="text-muted-foreground">Monitor financial performance and metrics</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">General Ledger</h1>
+          <p className="text-muted-foreground">Overview of your financial health and key metrics</p>
+        </div>
+        <Button>
+          <DollarSign className="w-4 h-4 mr-2" />
+          Export
+        </Button>
       </div>
 
-      {/* Stats Grid */}
+      {/* Financial Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
+        <Card className="bg-green-50 border-green-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Monthly Revenue</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-green-700">Total Revenue</CardTitle>
+            <TrendingUp className="h-4 w-4 text-green-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$2.4M</div>
-            <p className="text-xs text-muted-foreground">+12% from last month</p>
+            <div className="text-2xl font-bold text-green-800">$124,500</div>
+            <p className="text-xs text-green-600">+12.5% from last month</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-red-50 border-red-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Operating Expenses</CardTitle>
-            <TrendingDown className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-red-700">Total Expenses</CardTitle>
+            <TrendingDown className="h-4 w-4 text-red-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$1.8M</div>
-            <p className="text-xs text-muted-foreground">-3% from last month</p>
+            <div className="text-2xl font-bold text-red-800">$45,200</div>
+            <p className="text-xs text-red-600">-3.2% from last month</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-blue-50 border-blue-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Net Profit</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-blue-700">Accounts Receivable</CardTitle>
+            <FileText className="h-4 w-4 text-blue-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$587K</div>
-            <p className="text-xs text-muted-foreground">+24% from last month</p>
+            <div className="text-2xl font-bold text-blue-800">$32,400</div>
+            <p className="text-xs text-blue-600">8 invoices pending</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-orange-50 border-orange-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Cash Flow</CardTitle>
-            <CreditCard className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-orange-700">Accounts Payable</CardTitle>
+            <CreditCard className="h-4 w-4 text-orange-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$892K</div>
-            <p className="text-xs text-muted-foreground">Available cash</p>
+            <div className="text-2xl font-bold text-orange-800">$18,750</div>
+            <p className="text-xs text-orange-600">5 invoices due</p>
           </CardContent>
         </Card>
       </div>
 
-      {/* Financial Overview */}
+      {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Recent Transactions */}
         <Card>
-          <CardHeader>
-            <CardTitle>Budget vs Actual</CardTitle>
-            <CardDescription>Department budget performance this quarter</CardDescription>
+          <CardHeader className="flex flex-row items-center space-y-0 pb-2">
+            <div className="flex-1">
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="w-4 h-4" />
+                Recent Transactions
+              </CardTitle>
+              <CardDescription>Latest entries in your general ledger</CardDescription>
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             {[
-              { department: "R&D", budget: 500000, actual: 475000, variance: -5 },
-              { department: "Manufacturing", budget: 800000, actual: 820000, variance: 2.5 },
-              { department: "Sales & Marketing", budget: 300000, actual: 285000, variance: -5 },
-              { department: "Operations", budget: 200000, actual: 195000, variance: -2.5 },
-            ].map((item, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">{item.department}</p>
-                    <p className="text-sm text-muted-foreground">
-                      Budget: ${(item.budget / 1000).toFixed(0)}K | Actual: ${(item.actual / 1000).toFixed(0)}K
-                    </p>
-                  </div>
-                  <Badge variant={item.variance < 0 ? "default" : "destructive"}>
-                    {item.variance > 0 ? "+" : ""}{item.variance}%
-                  </Badge>
-                </div>
-                <Progress value={(item.actual / item.budget) * 100} className="h-2" />
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Transactions</CardTitle>
-            <CardDescription>Latest financial transactions</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {[
-              { description: "Raw Material Purchase", amount: -125000, type: "Expense", date: "Today" },
-              { description: "Product Sales - Hospital Chain", amount: 340000, type: "Revenue", date: "Yesterday" },
-              { description: "Equipment Maintenance", amount: -8500, type: "Expense", date: "2 days ago" },
-              { description: "Insurance Payment", amount: -25000, type: "Expense", date: "3 days ago" },
-              { description: "Product Sales - Pharmacy", amount: 89000, type: "Revenue", date: "4 days ago" },
+              { description: "Sales Revenue", date: "2024-01-15", category: "Sales", amount: 15000, type: "revenue" },
+              { description: "Office Supplies", date: "2024-01-14", category: "Procurement", amount: -250, type: "expense" },
+              { description: "Customer Payment", date: "2024-01-13", category: "Sales", amount: 5000, type: "cash" }
             ].map((transaction, index) => (
-              <div key={index} className="flex items-center justify-between">
+              <div key={index} className="flex items-center justify-between border-b pb-2">
                 <div>
                   <p className="font-medium">{transaction.description}</p>
-                  <p className="text-sm text-muted-foreground">{transaction.type} • {transaction.date}</p>
+                  <p className="text-sm text-muted-foreground">{transaction.date} • {transaction.category}</p>
                 </div>
                 <div className="text-right">
                   <p className={`font-medium ${transaction.amount > 0 ? 'text-green-600' : 'text-red-600'}`}>
                     {transaction.amount > 0 ? '+' : ''}${Math.abs(transaction.amount).toLocaleString()}
                   </p>
+                  <p className="text-xs text-muted-foreground capitalize">{transaction.type}</p>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Budget Status */}
+        <Card>
+          <CardHeader className="flex flex-row items-center space-y-0 pb-2">
+            <div className="flex-1">
+              <CardTitle className="flex items-center gap-2">
+                <Target className="w-4 h-4" />
+                Budget Status
+              </CardTitle>
+              <CardDescription>Budgeted vs actual amounts for key accounts</CardDescription>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {[
+              { category: "Revenue", actual: 85000, budget: 100000, percentage: 85 },
+              { category: "Marketing", actual: 18000, budget: 25000, percentage: 72 },
+              { category: "Operations", actual: 45000, budget: 50000, percentage: 90 }
+            ].map((item, index) => (
+              <div key={index} className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">{item.category}</span>
+                  <span className="text-sm font-medium">{item.percentage}%</span>
+                </div>
+                <Progress value={item.percentage} className="h-2" />
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>${item.actual.toLocaleString()} actual</span>
+                  <span>${item.budget.toLocaleString()} budget</span>
                 </div>
               </div>
             ))}
           </CardContent>
         </Card>
       </div>
+
+      {/* Quick Actions */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Quick Actions</CardTitle>
+          <CardDescription>Common financial management tasks</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Button 
+              variant="outline" 
+              className="h-20 flex flex-col gap-2"
+              onClick={() => navigate('/finance/transactions')}
+            >
+              <Plus className="w-5 h-5" />
+              Add Transaction
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className="h-20 flex flex-col gap-2"
+              onClick={() => navigate('/finance/invoices')}
+            >
+              <FileText className="w-5 h-5" />
+              Create Invoice
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className="h-20 flex flex-col gap-2"
+              onClick={() => navigate('/finance/payables')}
+            >
+              <Eye className="w-5 h-5" />
+              View Payables
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className="h-20 flex flex-col gap-2"
+              onClick={() => navigate('/finance/budgets')}
+            >
+              <Target className="w-5 h-5" />
+              Manage Budgets
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

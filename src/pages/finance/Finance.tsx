@@ -1,6 +1,11 @@
 import { useLocation } from "react-router-dom";
 import ModuleLayout from "@/components/layout/ModuleLayout";
 import FinanceDashboard from "./FinanceDashboard";
+import ChartOfAccounts from "./ChartOfAccounts";
+import AccountsPayable from "./AccountsPayable";
+import AccountsReceivable from "./AccountsReceivable";
+import BudgetManagement from "./BudgetManagement";
+import FinancialAnalytics from "./FinancialAnalytics";
 
 const Finance = () => {
   const location = useLocation();
@@ -18,31 +23,20 @@ const Finance = () => {
   const renderContent = () => {
     switch (location.pathname) {
       case "/finance/accounts":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Chart of Accounts</h1>
-            <p className="text-muted-foreground">Manage your chart of accounts and financial structure.</p>
-          </div>
-        );
+        return <ChartOfAccounts />;
+      case "/finance/payables":
+        return <AccountsPayable />;
+      case "/finance/receivables":
+        return <AccountsReceivable />;
+      case "/finance/budgets":
+        return <BudgetManagement />;
+      case "/finance/reports":
+        return <FinancialAnalytics />;
       case "/finance/transactions":
         return (
           <div className="p-6">
             <h1 className="text-2xl font-bold mb-4">Transactions</h1>
             <p className="text-muted-foreground">View and manage financial transactions.</p>
-          </div>
-        );
-      case "/finance/reports":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Financial Reports</h1>
-            <p className="text-muted-foreground">Generate financial reports and statements.</p>
-          </div>
-        );
-      case "/finance/budgets":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Budget Management</h1>
-            <p className="text-muted-foreground">Create and monitor budgets.</p>
           </div>
         );
       default:
