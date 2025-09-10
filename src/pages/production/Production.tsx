@@ -1,6 +1,12 @@
 import { useLocation } from "react-router-dom";
 import ModuleLayout from "@/components/layout/ModuleLayout";
 import ProductionDashboard from "./ProductionDashboard";
+import ProductionPlanning from "./ProductionPlanning";
+import BillOfMaterials from "./BillOfMaterials";
+import ShopFloorControl from "./ShopFloorControl";
+import QualityControl from "./QualityControl";
+import MaintenanceManagement from "./MaintenanceManagement";
+import ProductionOrders from "./ProductionOrders";
 
 const Production = () => {
   const location = useLocation();
@@ -18,33 +24,17 @@ const Production = () => {
   const renderContent = () => {
     switch (location.pathname) {
       case "/production/planning":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Production Planning</h1>
-            <p className="text-muted-foreground">Plan and schedule production activities.</p>
-          </div>
-        );
-      case "/production/orders":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Production Orders</h1>
-            <p className="text-muted-foreground">Manage production orders and workflows.</p>
-          </div>
-        );
+        return <ProductionPlanning />;
+      case "/production/bom":
+        return <BillOfMaterials />;
+      case "/production/shopfloor":
+        return <ShopFloorControl />;
       case "/production/quality":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Quality Control</h1>
-            <p className="text-muted-foreground">Monitor quality control processes.</p>
-          </div>
-        );
+        return <QualityControl />;
       case "/production/maintenance":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Maintenance</h1>
-            <p className="text-muted-foreground">Equipment maintenance and scheduling.</p>
-          </div>
-        );
+        return <MaintenanceManagement />;
+      case "/production/orders":
+        return <ProductionOrders />;
       default:
         return (
           <div className="p-6">

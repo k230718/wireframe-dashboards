@@ -85,11 +85,13 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
         return {
           title: "Production",
           items: [
-            { href: "/production", icon: Home, label: "Dashboard" },
+            { href: "/production", icon: Home, label: "Manufacturing Dashboard" },
             { href: "/production/planning", icon: Calendar, label: "Production Planning" },
-            { href: "/production/orders", icon: ClipboardList, label: "Work Orders" },
+            { href: "/production/bom", icon: ClipboardList, label: "Bill of Materials" },
+            { href: "/production/shopfloor", icon: Cog, label: "Shop Floor Control" },
             { href: "/production/quality", icon: Shield, label: "Quality Control" },
-            { href: "/production/equipment", icon: Settings, label: "Equipment" },
+            { href: "/production/maintenance", icon: Settings, label: "Maintenance Management" },
+            { href: "/production/orders", icon: FileText, label: "Production Orders" },
           ]
         };
       case "sales-marketing":
