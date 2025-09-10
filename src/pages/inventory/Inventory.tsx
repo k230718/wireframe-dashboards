@@ -1,6 +1,10 @@
 import { useLocation } from "react-router-dom";
 import ModuleLayout from "@/components/layout/ModuleLayout";
 import InventoryDashboard from "./InventoryDashboard";
+import ReorderAlerts from "./ReorderAlerts";
+import CycleCounts from "./CycleCounts";
+import InventoryAnalytics from "./InventoryAnalytics";
+import BatchManagement from "./BatchManagement";
 
 const Inventory = () => {
   const location = useLocation();
@@ -17,32 +21,19 @@ const Inventory = () => {
   // Handle sub-routes
   const renderContent = () => {
     switch (location.pathname) {
+      case "/inventory/alerts":
+        return <ReorderAlerts />;
+      case "/inventory/cycle-counts":
+        return <CycleCounts />;
+      case "/inventory/analytics":
+        return <InventoryAnalytics />;
+      case "/inventory/batches":
+        return <BatchManagement />;
       case "/inventory/stock":
         return (
           <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Stock Management</h1>
-            <p className="text-muted-foreground">Track and manage inventory levels.</p>
-          </div>
-        );
-      case "/inventory/warehouses":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Warehouse Management</h1>
-            <p className="text-muted-foreground">Manage warehouse operations and locations.</p>
-          </div>
-        );
-      case "/inventory/transfers":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Stock Transfers</h1>
-            <p className="text-muted-foreground">Handle stock transfers between locations.</p>
-          </div>
-        );
-      case "/inventory/adjustments":
-        return (
-          <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Inventory Adjustments</h1>
-            <p className="text-muted-foreground">Make inventory adjustments and reconciliations.</p>
+            <h1 className="text-2xl font-bold mb-4">Stock Overview</h1>
+            <p className="text-muted-foreground">View and manage stock levels.</p>
           </div>
         );
       default:

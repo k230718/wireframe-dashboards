@@ -34,7 +34,8 @@ import {
   DollarSign,
   LayoutDashboard,
   BookOpen,
-  CreditCard
+  CreditCard,
+  AlertTriangle
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -74,11 +75,11 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
         return {
           title: "Inventory",
           items: [
-            { href: "/inventory", icon: Home, label: "Dashboard" },
-            { href: "/inventory/items", icon: Package, label: "Items" },
-            { href: "/inventory/stock", icon: BarChart3, label: "Stock Levels" },
-            { href: "/inventory/locations", icon: MapPin, label: "Locations" },
-            { href: "/inventory/movements", icon: TrendingUp, label: "Stock Movements" },
+            { href: "/inventory", icon: Home, label: "Stock Overview" },
+            { href: "/inventory/alerts", icon: AlertTriangle, label: "Reorder Alerts" },
+            { href: "/inventory/cycle-counts", icon: ClipboardList, label: "Cycle Counts" },
+            { href: "/inventory/analytics", icon: BarChart3, label: "Analytics" },
+            { href: "/inventory/batches", icon: Package, label: "Batch Management" },
           ]
         };
       case "production":
