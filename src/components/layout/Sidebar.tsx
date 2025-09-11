@@ -124,10 +124,12 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
           title: "Supply Chain",
           items: [
             { href: "/supply-chain", icon: Home, label: "Dashboard" },
-            { href: "/supply-chain/logistics", icon: Truck, label: "Logistics" },
-            { href: "/supply-chain/planning", icon: Calendar, label: "Planning" },
-            { href: "/supply-chain/tracking", icon: MapPin, label: "Shipment Tracking" },
-            { href: "/supply-chain/analytics", icon: BarChart3, label: "Analytics" },
+            { href: "/supply-chain/inventory", icon: Package, label: "Inventory Management" },
+            { href: "/supply-chain/procurement", icon: ShoppingCart, label: "Procurement" },
+            { href: "/supply-chain/order-fulfillment", icon: ClipboardList, label: "Order Fulfillment" },
+            { href: "/supply-chain/logistics", icon: Truck, label: "Logistics & Transportation" },
+            { href: "/supply-chain/planning", icon: Calendar, label: "Demand Planning" },
+            { href: "/supply-chain/settings", icon: Settings, label: "Settings" },
           ]
         };
       case "hr":
