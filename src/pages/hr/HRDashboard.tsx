@@ -1,14 +1,28 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Users, Calendar, DollarSign, TrendingUp } from "lucide-react";
+import { Users, Briefcase, Star, UserPlus } from "lucide-react";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 const HRDashboard = () => {
+  const departmentData = [
+    { name: "Engineering", value: 25, color: "#3b82f6" },
+    { name: "Marketing", value: 25, color: "#10b981" },
+    { name: "Finance", value: 25, color: "#f59e0b" },
+    { name: "HR", value: 12.5, color: "#8b5cf6" },
+    { name: "Sales", value: 12.5, color: "#ef4444" },
+  ];
+
+  const attendanceData = [
+    { status: "Present", count: 3, color: "#10b981" },
+    { status: "Absent", count: 1, color: "#ef4444" },
+    { status: "On Leave", count: 1, color: "#f59e0b" },
+  ];
+
   return (
     <div className="p-6 space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-foreground">HR Dashboard</h1>
-        <p className="text-muted-foreground">Human resources overview and analytics</p>
+        <p className="text-muted-foreground">Welcome back! Here's what's happening in your organization.</p>
       </div>
 
       {/* Stats Grid */}
@@ -16,104 +30,144 @@ const HRDashboard = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Employees</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <Users className="h-5 w-5 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">1,247</div>
-            <p className="text-xs text-muted-foreground">+23 this month</p>
+            <div className="text-3xl font-bold">8</div>
+            <p className="text-sm text-orange-500">0 new employees</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Open Positions</CardTitle>
-            <Calendar className="h-4 w-4 text-muted-foreground" />
+            <Briefcase className="h-5 w-5 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">34</div>
-            <p className="text-xs text-muted-foreground">Across all departments</p>
+            <div className="text-3xl font-bold">3</div>
+            <p className="text-sm text-orange-500">0 new positions</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Payroll Budget</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">New Applications</CardTitle>
+            <UserPlus className="h-5 w-5 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$8.2M</div>
-            <p className="text-xs text-muted-foreground">Monthly allocation</p>
+            <div className="text-3xl font-bold">5</div>
+            <p className="text-sm text-orange-500">0 new applications</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Employee Satisfaction</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Avg. Employee Rating</CardTitle>
+            <Star className="h-5 w-5 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">87%</div>
-            <p className="text-xs text-muted-foreground">+3% from last quarter</p>
+            <div className="text-3xl font-bold">4.2</div>
+            <p className="text-sm text-muted-foreground">Out of 5</p>
           </CardContent>
         </Card>
       </div>
 
-      {/* HR Details */}
+      {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Department Headcount</CardTitle>
-            <CardDescription>Employee distribution across departments</CardDescription>
+            <CardTitle>Employee Distribution by Department</CardTitle>
+            <CardDescription>Breakdown of employees across different departments</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            {[
-              { department: "Manufacturing", count: 456, capacity: 500, growth: 2.3 },
-              { department: "Research & Development", count: 234, capacity: 250, growth: 8.1 },
-              { department: "Quality Assurance", count: 145, capacity: 150, growth: -1.2 },
-              { department: "Sales & Marketing", count: 189, capacity: 200, growth: 5.4 },
-              { department: "Administration", count: 123, capacity: 130, growth: 1.8 },
-            ].map((dept, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">{dept.department}</p>
-                    <p className="text-sm text-muted-foreground">{dept.count}/{dept.capacity} employees</p>
-                  </div>
-                  <Badge variant={dept.growth > 0 ? "default" : "secondary"}>
-                    {dept.growth > 0 ? "+" : ""}{dept.growth}%
-                  </Badge>
+          <CardContent>
+            <div className="flex items-center justify-center h-64 mb-4">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={departmentData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={100}
+                    paddingAngle={2}
+                    dataKey="value"
+                  >
+                    {departmentData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="flex flex-wrap justify-center gap-4">
+              {departmentData.map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
+                  <span className="text-sm font-medium">{item.value}</span>
+                  <span className="text-sm text-muted-foreground">{item.name}</span>
                 </div>
-                <Progress value={(dept.count / dept.capacity) * 100} className="h-2" />
-              </div>
-            ))}
+              ))}
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activities</CardTitle>
-            <CardDescription>Latest HR activities and updates</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {[
-              { activity: "New hire onboarding", employee: "Sarah Johnson", department: "R&D", time: "2 hours ago" },
-              { activity: "Performance review completed", employee: "Michael Chen", department: "Manufacturing", time: "4 hours ago" },
-              { activity: "Job posting published", position: "Senior Chemist", department: "R&D", time: "6 hours ago" },
-              { activity: "Training completed", employee: "Emily Rodriguez", department: "QA", time: "1 day ago" },
-              { activity: "Promotion approved", employee: "David Kim", department: "Sales", time: "2 days ago" },
-            ].map((item, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">{item.activity}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {item.employee || item.position} • {item.department}
-                  </p>
-                </div>
-                <p className="text-xs text-muted-foreground">{item.time}</p>
+        <div className="space-y-6">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <div>
+                <CardTitle className="text-lg">Payroll Summary</CardTitle>
+                <CardDescription>10/15/2025</CardDescription>
               </div>
-            ))}
-          </CardContent>
-        </Card>
+              <div className="text-right">
+                <div className="text-2xl font-bold text-green-600">$0.0k</div>
+                <p className="text-sm text-muted-foreground">Monthly trends (in thousands)</p>
+              </div>
+            </CardHeader>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <div>
+                <CardTitle className="text-lg">Upcoming Training</CardTitle>
+                <CardDescription>Next 7 days</CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">No upcoming training sessions</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Today's Attendance</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold">Current status</div>
+                  <div className="flex justify-center gap-8 mt-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-green-600">5</div>
+                      <div className="text-sm text-muted-foreground">Present</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-orange-500">2</div>
+                      <div className="text-sm text-muted-foreground">Late</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-red-600">1</div>
+                      <div className="text-sm text-muted-foreground">Absent</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-lg font-medium">Attendance Rate</div>
+                  <div className="text-3xl font-bold">63%</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

@@ -137,10 +137,13 @@ const Sidebar = ({ moduleType }: SidebarProps) => {
           title: "Human Resources",
           items: [
             { href: "/hr", icon: Home, label: "Dashboard" },
-            { href: "/hr/employees", icon: Users, label: "Employee Management" },
+            { href: "/hr/employees", icon: Users, label: "Employee Records" },
             { href: "/hr/recruitment", icon: UserPlus, label: "Recruitment" },
             { href: "/hr/payroll", icon: DollarSign, label: "Payroll" },
+            { href: "/hr/attendance", icon: Calendar, label: "Attendance" },
             { href: "/hr/performance", icon: Target, label: "Performance" },
+            { href: "/hr/training", icon: BookOpen, label: "Training" },
+            { href: "/hr/settings", icon: Settings, label: "Settings" },
           ]
         };
       default:
