@@ -6,6 +6,7 @@ import AccountsPayable from "./AccountsPayable";
 import AccountsReceivable from "./AccountsReceivable";
 import BudgetManagement from "./BudgetManagement";
 import FinancialAnalytics from "./FinancialAnalytics";
+import Settings from "./Settings";
 
 const Finance = () => {
   const location = useLocation();
@@ -39,6 +40,8 @@ const Finance = () => {
             <p className="text-muted-foreground">View and manage financial transactions.</p>
           </div>
         );
+      case "/finance/settings":
+        return <Settings />;
       default:
         return (
           <div className="p-6">

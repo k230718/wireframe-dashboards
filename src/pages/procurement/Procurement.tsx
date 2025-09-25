@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Plus, Search, Download, Eye, Edit, Trash2, FileText, DollarSign, ChevronLeft, ChevronRight } from "lucide-react";
 import ModuleLayout from "@/components/layout/ModuleLayout";
 import ProcurementDashboard from "./ProcurementDashboard";
+import Settings from "./Settings";
 
 const Procurement = () => {
   const location = useLocation();
